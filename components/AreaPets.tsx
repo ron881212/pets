@@ -75,6 +75,8 @@ export default function AreaPets() {
         renderItem={renderItem}
         keyExtractor={item => item.id}
         horizontal={true}
+        contentContainerStyle={{paddingRight:20,paddingBottom:10}}
+        showsHorizontalScrollIndicator={false}
       />
     </SafeAreaView>
   );
@@ -82,9 +84,8 @@ export default function AreaPets() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    // alignItems: 'center',
-    // justifyContent: 'center',
+    flexGrow: 1,
+    // height:260
   },
   avatarImg: {
     width: 41,
@@ -110,7 +111,7 @@ const styles = StyleSheet.create({
     borderRadius:20,
     marginTop:20,
     marginLeft:20,
-    backgroundColor:'white'
+    backgroundColor:'white',
   },
   likes: {
     height: 40,

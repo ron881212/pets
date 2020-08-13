@@ -37,7 +37,7 @@ export default function MyTabs() {
             borderTopRightRadius: 25,
             borderColor: 'transparent',
             overflow: 'hidden',
-            backgroundColor:'#00B4D2',
+            backgroundColor:'#00B4D2', // or #66BEC5
             height:'10%',
             position: 'absolute'
         },

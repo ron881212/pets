@@ -22,7 +22,7 @@ export default function Draw({navigation}:any) {
       <Image source={require('../assets/drawer/close.png')} style={styles.close} />
       </TouchableOpacity>
 
-      <Image source={require('../assets/avatarTemp.png')} style={styles.avatar}/>
+      <Image source={{uri:'https://images.pexels.com/photos/428333/pexels-photo-428333.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940'}} style={styles.avatar}/>
 
       <List.Subheader style={styles.textName}>Ronald Glover</List.Subheader>
 

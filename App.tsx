@@ -8,7 +8,6 @@ import BottomTab from './navigation/bottomTab'
 export default function App() {
   return (
     <PaperProvider>
-      {/* <BottomTab /> */}
       <DrawerTab />
     </PaperProvider>
   );

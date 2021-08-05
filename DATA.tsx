@@ -19,7 +19,7 @@ export const areaPets = [
     },
     {
         id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28bd',
-        title: 'Luck Cage',
+        title: 'Luke Cage',
         description: 'Cat Sitter',
         ownerImg: 'https://images.pexels.com/photos/2890768/pexels-photo-2890768.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
         petImg: 'https://images.pexels.com/photos/730896/pexels-photo-730896.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',

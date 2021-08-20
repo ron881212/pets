@@ -6,6 +6,10 @@ import {Button} from 'react-native-paper';
 import {ScrollView} from 'react-native-gesture-handler';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import Swiper from 'react-native-swiper';
+import Splash01 from '../assets/splash/splash01';
+import Splash02 from '../assets/splash/splash02';
+import Color from '../constants/Color';
+import {NavigationContainer} from '@react-navigation/native';
 // import {useDispatch, useSelector} from 'react-redux';
 
 // import Colors from '../../constants/Colors'
@@ -14,24 +18,45 @@ import Login from './Login';
 import SignUpScreen from './SignUp';
 import {createAppContainer} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
+import DrawTab from './drawTab';
 
-const WalkthroughScreen = () => {
+const WalkthroughScreen = (props) => {
+  // const [toggle, setToggle] = React.useState<boolean>(true);
   // const dispatch = useDispatch();
   // const navigation = useNavigation();
+
+  React.useEffect(() => {
+    // skips this screen if user logged in
+    // if (user.email !== '') {
+    //   navigation.navigate('ExploreScreen')
+    // }
+  }, []);
 
   // if (user !== null && user.email !== '') {
   //   return <AppLoading />
   // } else {
   return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView>
+    <NavigationContainer>
+      <SafeAreaView style={styles.container}>
         <Swiper
-          showsButtons={false}
-          showsPagination
+          showsButtons
+          showsPagination={false}
           autoplay
           autoplayTimeout={8}
-          nextButton
-          // activeDotColor={Colors.green}
+          nextButton={
+            <Button
+              mode="contained"
+              // style={{backgroundColor: toggle ? Color.red : Color.blue}}
+              // onPress={() => setToggle(!toggle)}
+            >
+              Next
+            </Button>
+          }
+          prevButton={<></>}
+          buttonWrapperStyle={{
+            alignItems: 'flex-end',
+            justifyContent: 'center',
+          }}
           style={{backgroundColor: 'white', padding: 0}}>
           <WalkthroughSlide
             text="Find your next best friend"
@@ -50,10 +75,15 @@ const WalkthroughScreen = () => {
             subtext="We will help you to find your next best friend"
             index={2}
           />
+          <WalkthroughSlide
+            text="Saving a life will change yours"
+            subtext="We will help you to find your next best friend"
+            index={3}
+          />
         </Swiper>
-      </ScrollView>
-      <ActionButtonGroup />
-    </SafeAreaView>
+        <ActionButtonGroup {...props} />
+      </SafeAreaView>
+    </NavigationContainer>
   );
 };
 // }
@@ -64,15 +94,10 @@ function WalkthroughSlide(props: {
   text: string;
   subtext: string;
 }) {
-  const img = [
-    require('../assets/splash/splash01.png'),
-    require('../assets/splash/splash02.png'),
-    require('../assets/splash/splash01.png'),
-  ];
+  const img = [<Splash01 />, <Splash02 />, <Splash01 />, <Splash02 />];
   return (
     <View style={styles.textContainer}>
-      <Image style={styles.imageStyle} source={img[props.index]} />
-
+      {img[props.index]}
       <View>
         <Text style={styles.textStyle}>{props.text}</Text>
         <Text style={styles.subtitle}>{props.subtext}</Text>
@@ -81,20 +106,17 @@ function WalkthroughSlide(props: {
   );
 }
 
-function ActionButtonGroup() {
+function ActionButtonGroup(props) {
   // const navigation = useNavigation();
 
   return (
     <View style={styles.containerRow}>
       <View style={{flexDirection: 'column', flex: 1}}>
-        <Button mode="contained" style={styles.button}>
-          Next
-        </Button>
         <Button
           mode="text"
-          style={styles.button}
+          style={[styles.button, {}]}
           onPress={() => {
-            // navigation.navigate('Login');
+            props.navigation.navigate('LogIn');
           }}>
           Login
         </Button>

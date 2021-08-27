@@ -1,14 +1,12 @@
-import React, {Component} from 'react';
-import {Text, View} from 'react-native';
+import React from 'react';
+import {Text, SafeAreaView} from 'react-native';
 
-export default class Login extends Component {
-  render() {
-    return (
-      <View>
-        <Text> textInComponent </Text>
-      </View>
-    );
-  }
+export default function Login() {
+  return (
+    <SafeAreaView>
+      <Text>Log In</Text>
+    </SafeAreaView>
+  );
 }
 
 // const styles = StyleSheet.create({});

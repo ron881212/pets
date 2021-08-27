@@ -1,6 +1,6 @@
 import 'react-native-gesture-handler';
 import React, {useEffect, useState} from 'react';
-// import {StyleSheet, Text, View} from 'react-native';
+// import {StyleSheet, Text, View, LogBox } from 'react-native';
 import {Provider as PaperProvider} from 'react-native-paper';
 // import DrawerTab from './navigation/drawTab';
 import {Provider as ReduxProvider} from 'react-redux';
@@ -12,6 +12,15 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import LandingPage from './navigation/bottomTab';
 import Draw from './screens/Draw';
+import * as firebase from 'firebase';
+import {firebaseDevConfig} from './config/Firebase';
+
+// examples of logbox ignore commands
+// LogBox.ignoreLogs([
+//   'Setting a timer',
+//   'Require cycle:',
+//   'Animated: `useNativeDriver` was not specified.',
+// ])
 
 // const rootReducer = combineReducers({
 //   setUser,
@@ -24,22 +33,35 @@ import Draw from './screens/Draw';
 const RootDrawer = createDrawerNavigator();
 
 export default function App() {
-  const [user, setUser] = useState();
+  const [user, setUser] = useState<firebase.default.User | null>(null);
+  const [loggedIn, isLoggedIn] = useState<boolean>(false);
   const dimensions = useWindowDimensions();
   const isLargeScreen = dimensions.width >= 768;
 
-  // useEffect(() => {
-  //   const unsubscriber = firebase.auth().onAuthStateChanged((currentUser) => {
-  //     setUser(currentUser);
-  //   });
+  if (firebase.default.apps.length === 0) {
+    firebase.default.initializeApp(firebaseDevConfig);
+  }
 
-  //   return () => {
-  //     unsubscriber();
-  //   };
-  // }, [user]);
+  useEffect(() => {
+    const unsubscriber = firebase.default
+      .auth()
+      .onAuthStateChanged((currentUser) => {
+        if (!user) {
+          setUser(currentUser);
+          isLoggedIn(false);
+        } else {
+          isLoggedIn(true);
+        }
+      });
+
+    return () => {
+      unsubscriber();
+    };
+  }, [user]);
 
   return (
     <PaperProvider>
+      {/* <ReduxProvider store={store}> */}
       <StatusBar style="auto" />
       {!user ? (
         <WalkthroughScreen />
@@ -62,22 +84,10 @@ export default function App() {
           </RootDrawer.Navigator>
         </NavigationContainer>
       )}
+      {/* </ReduxProvider> */}
     </PaperProvider>
   );
 }
-
-//<ReduxProvider store={store}>
-//     {user ? (
-//       <PaperProvider>
-//         <DrawerTab />
-//       </PaperProvider>
-//     ) : (
-//   <>
-//     <StatusBar style="auto" />
-//     <WalkthroughScreen />
-//   </>
-//      )}
-//   </ReduxProvider>
 
 // const styles = StyleSheet.create({
 //   container: {

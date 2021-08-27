@@ -1,14 +1,12 @@
-import {useNavigation} from '@react-navigation/native';
-import {AppLoading} from 'expo';
+// import {AppLoading} from 'expo';
 import * as React from 'react';
-import {StyleSheet, View, Text, Image} from 'react-native';
+import {StyleSheet, View, Text} from 'react-native';
 import {Button} from 'react-native-paper';
-import {ScrollView} from 'react-native-gesture-handler';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import Swiper from 'react-native-swiper';
 import Splash01 from '../assets/splash/splash01';
 import Splash02 from '../assets/splash/splash02';
-import Color from '../constants/Color';
+// import Color from '../constants/Color';
 import {NavigationContainer} from '@react-navigation/native';
 // import {useDispatch, useSelector} from 'react-redux';
 
@@ -18,9 +16,8 @@ import Login from './Login';
 import SignUpScreen from './SignUp';
 import {createAppContainer} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
-import DrawTab from './drawTab';
 
-const WalkthroughScreen = (props) => {
+const WalkthroughScreen = (props: any) => {
   // const [toggle, setToggle] = React.useState<boolean>(true);
   // const dispatch = useDispatch();
   // const navigation = useNavigation();
@@ -106,9 +103,7 @@ function WalkthroughSlide(props: {
   );
 }
 
-function ActionButtonGroup(props) {
-  // const navigation = useNavigation();
-
+function ActionButtonGroup({navigation}: any) {
   return (
     <View style={styles.containerRow}>
       <View style={{flexDirection: 'column', flex: 1}}>
@@ -116,7 +111,7 @@ function ActionButtonGroup(props) {
           mode="text"
           style={[styles.button, {}]}
           onPress={() => {
-            props.navigation.navigate('LogIn');
+            navigation.navigate('LogIn');
           }}>
           Login
         </Button>
@@ -186,12 +181,15 @@ export default createAppContainer(
   createStackNavigator({
     Walkthrough: {
       screen: WalkthroughScreen,
+      navigationOptions: {headerShown: false},
     },
     LogIn: {
       screen: Login,
+      navigationOptions: {headerShown: false},
     },
     SignUp: {
       screen: SignUpScreen,
+      navigationOptions: {headerShown: false},
     },
   })
 );
